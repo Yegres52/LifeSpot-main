@@ -1,18 +1,12 @@
-﻿// Создаем объект Map
-let myMap = new Map();
-myMap.set("Германия", "Берлин")
-myMap.set("Швеция", "Стокгольм")
-myMap.set(1, "Москва")
+﻿/*
+* Сохраним текущий ввод пользователя в контекст кнопки
+*
+* */
+function saveInput(){
+    let currentInput = document.getElementsByTagName('input')[0].value
+    let previousInput = this.previousInput || 'Предыдущего ввода нет'
 
-let newArray = [];
-// Перебор Map в цикле for
-for (let result of myMap){
-    newArray.push(result);
+    this.previousInput = currentInput
+
+    alert('Текущий ввод: ' + currentInput + '\n' + 'Предыдущий ввод: ' + previousInput)
 }
-console.log(newArray);
-
-let newArrayOfStrings = [];
-// Перебор Map с помощью Array.from
-// Позволяет на лету выполнять операции с парой ключ-значение
-Array.from(myMap, ([key,value]) => newArrayOfStrings.push(`${key} - ${value}`) );
-console.log(newArrayOfStrings);
