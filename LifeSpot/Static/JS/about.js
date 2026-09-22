@@ -54,7 +54,8 @@ const writeReview = review => {
     let rate = ''
 
     if(Object.prototype.hasOwnProperty.call(review, 'rate')){
-        rate = `<p>Рейтинг: ${review['rate']}</p>`
+        let rateId = `rate-${Date.now()}`
+        rate = `<p><button onclick="addLike('${rateId}')">❤️</button> Рейтинг: <span id="${rateId}">${review['rate']}</span></p>`
     }
 
     document.getElementsByClassName('reviews')[0].innerHTML += '    <div class="review-text">\n' +
@@ -62,4 +63,13 @@ const writeReview = review => {
         `<p>${review['comment']}</p>`  +
         rate +
         '</div>';
+}
+
+/*
+* Увеличим рейтинг отзыва
+*
+* */
+function addLike(id){
+    let rate = document.getElementById(id)
+    rate.innerText = Number(rate.innerText) + 1
 }
