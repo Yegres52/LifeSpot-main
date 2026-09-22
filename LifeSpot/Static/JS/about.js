@@ -1,29 +1,37 @@
 ﻿/*
 * Запросим пользовательский ввод
-* и сохраним отзыв в объект
-* 
+* и сохраним комментарий в объект
+*
 * */
 function getReview() {
-    // Создадим объект
-    let review = {}
+    // Создадим объект комментария
+    let comment = {}
     
     // Сохраним свойство имени
-    review["userName"] = prompt("Как вас зовут ?")
-    if(review["userName"] == null){
+    comment["userName"] = prompt("Как вас зовут ?")
+    if(comment["userName"] == null){
         return
     }
     
-    // Сохраним текст отзыва
-    review["comment"] = prompt("Напишите свой отзыв")
-    if(review["comment"] == null){
+    // Сохраним текст комментария
+    comment["comment"] = prompt("Напишите свой отзыв")
+    if(comment["comment"] == null){
         return
     }
     
     // Сохраним текущее время
-    review["date"] = new Date().toLocaleString()
+    comment["date"] = new Date().toLocaleString()
+
+    if(confirm("Хотите, чтобы ваш комментарий могли оценить другие пользователи?")){
+        let review = Object.create(comment)
+        review["rate"] = 0
+
+        writeReview(review)
+        return
+    }
     
     // Добавим на страницу
-    writeReview(review)
+    writeReview(comment)
 }
 
 /*
@@ -31,8 +39,15 @@ function getReview() {
 * 
 * */
 const writeReview = review => {
+    let rate = ''
+
+    if(Object.prototype.hasOwnProperty.call(review, 'rate')){
+        rate = `<p>Рейтинг: ${review['rate']}</p>`
+    }
+
     document.getElementsByClassName('reviews')[0].innerHTML += '    <div class="review-text">\n' +
         `<p> <i> <b>${review['userName']}</b>  ${review['date']}</i></p>` +
         `<p>${review['comment']}</p>`  +
+        rate +
         '</div>';
 }
