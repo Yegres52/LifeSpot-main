@@ -3,24 +3,36 @@
 * и сохраним комментарий в объект
 *
 * */
-function getReview() {
-    // Создадим объект комментария
-    let comment = {}
+function Comment() {
     
     // Сохраним свойство имени
-    comment["userName"] = prompt("Как вас зовут ?")
-    if(comment["userName"] == null){
+    this.userName = prompt("Как вас зовут ?")
+    if(this.userName == null){
         return
     }
     
     // Сохраним текст комментария
-    comment["comment"] = prompt("Напишите свой отзыв")
-    if(comment["comment"] == null){
+    this.comment = prompt("Напишите свой отзыв")
+    if(this.comment == null){
         return
     }
     
     // Сохраним текущее время
-    comment["date"] = new Date().toLocaleString()
+    this.date = new Date().toLocaleString()
+}
+
+/*
+* Запросим пользовательский ввод
+* и сохраним комментарий в объект
+*
+* */
+function getReview() {
+    // Создадим объект комментария
+    let comment = new Comment()
+
+    if(comment.userName == null || comment.comment == null){
+        return
+    }
 
     if(confirm("Хотите, чтобы ваш комментарий могли оценить другие пользователи?")){
         let review = Object.create(comment)
